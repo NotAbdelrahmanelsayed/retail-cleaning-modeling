@@ -172,3 +172,9 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# Sources I used to learn for this project
+sources.txt
+
+# notes
+notes.txt
