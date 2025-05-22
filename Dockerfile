@@ -1,5 +1,5 @@
 # Use the slim Python image as a base
-FROM python:3.11-slim
+FROM python:3.9
 
 # Update and install PostgreSQL client
 RUN apt update && apt install -y postgresql-client

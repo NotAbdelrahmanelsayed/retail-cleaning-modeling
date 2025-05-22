@@ -1,10 +1,9 @@
-# https://github.com/scriptstar/dbt_pg_project/blob/master/docker-compose.yml
-
 
 services:
   postgres:
     image: postgres:latest
     container_name: dbt_postgres
+    restart: always
     environment:
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
@@ -12,29 +11,32 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - pg_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U dbtuser -d dbtpg"]
+      test: ["CMD-SHELL", "pg_isready -U dbtuser -d ${DB_DATABASE}"]
       interval: 10s
       timeout: 5s
       retries: 5
+    env_file:
+      - .env
 
   data_init:
-    image: python:3.11-slim
+
+    image: python:3.9
     container_name: pg_init_data_load
     volumes:
       - .:/usr/app
-    # working_dir: /usr/app/e_commerce/database/scripts
+    working_dir: /usr/app/e_commerce/database/scripts
     depends_on:
       postgres:
         condition: service_healthy
     env_file:
       - .env
     command: >
-      bash -c "pip install sqlalchemy pandas"
+      bash -c "pip install sqlalchemy pandas openpyxl && python insert_data.py"
 
   dbt:
-    image: python:3.11-slim # Use a base Python image for more control
+    image: python:3.9 # Use a base Python image for more control
     container_name: dbt_core
     ports:
       - "3000:8080" # Maps container's port 8080 to local machine's port 8080
@@ -55,4 +57,4 @@ services:
       - .env
 
 volumes:
-  postgres_data:
+  pg_data:

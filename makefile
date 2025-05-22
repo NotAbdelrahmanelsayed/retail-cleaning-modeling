@@ -7,9 +7,9 @@ up-build:
 up:
 	docker-compose up -d 
 
-# remove containers and volumes
+# down containers
 down:
-	docker compose down -v 
+	docker compose down 
 
 # List all volumes
 volumes: 
@@ -21,3 +21,7 @@ restart:
 
 sh:
 	docker exec -it dbt_core /bin/bash
+
+
+dbsh:
+	docker exec -it dbt_postgres psql -U ${DB_USER} ${DB_DATABASE}
