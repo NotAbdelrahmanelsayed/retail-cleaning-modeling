@@ -20,13 +20,23 @@ services:
     env_file:
       - .env
 
-  data_init:
+  pgadmin:
+    image: elestio/pgadmin
+    container_name: pgadmin_dbt
+    restart: always
+    ports: 
+      - "8888:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL} 
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD} 
+      volumes: pgadmin_data:/var/lib/pgadmin
 
-    image: python:3.9
+  data_init:
+    image: python:3.11-slim
     container_name: pg_init_data_load
     volumes:
       - .:/usr/app
-    working_dir: /usr/app/e_commerce/database/scripts
+    working_dir: /usr/app/src
     depends_on:
       postgres:
         condition: service_healthy
@@ -36,19 +46,18 @@ services:
       bash -c "pip install sqlalchemy pandas openpyxl && python insert_data.py"
 
   dbt:
-    image: python:3.9 # Use a base Python image for more control
+    image: python:3.11-slim # Use a base Python image for more control
     container_name: dbt_core
     ports:
       - "3000:8080" # Maps container's port 8080 to local machine's port 8080
     volumes:
       - .:/usr/app # Mounts your project directory to the container
-    working_dir: /usr/app/
-    # working_dir: /usr/app/e_commerce
+    working_dir: /usr/app/online_retail
     depends_on:
       data_init:
         condition: service_completed_successfully
-    # environment:
-    #   DBT_PROFILES_DIR: /usr/app/e_commerce # Ensures dbt uses your profiles.yml file from the project directory
+    environment:
+      DBT_PROFILES_DIR: /usr/app/online_retail # Ensures dbt uses your profiles.yml file from the project directory
     entrypoint: ["tail", "-f", "/dev/null"] # Keeps the dbt container running
     build:
       context: .
@@ -56,5 +65,7 @@ services:
     env_file:
       - .env
 
+
 volumes:
   pg_data:
+  pgadmin_data:
