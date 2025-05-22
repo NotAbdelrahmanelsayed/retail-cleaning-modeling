@@ -20,6 +20,7 @@ services:
     env_file:
       - .env
 
+
   pgadmin:
     image: elestio/pgadmin
     container_name: pgadmin_dbt
@@ -30,6 +31,7 @@ services:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL} 
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD} 
       volumes: pgadmin_data:/var/lib/pgadmin
+
 
   data_init:
     image: python:3.11-slim
@@ -45,13 +47,14 @@ services:
     command: >
       bash -c "pip install sqlalchemy pandas openpyxl && python insert_data.py"
 
+
   dbt:
-    image: python:3.11-slim # Use a base Python image for more control
+    image: python:3.11-slim 
     container_name: dbt_core
     ports:
       - "3000:8080" # Maps container's port 8080 to local machine's port 8080
     volumes:
-      - .:/usr/app # Mounts your project directory to the container
+      - .:/usr/app 
     working_dir: /usr/app/online_retail
     depends_on:
       data_init:

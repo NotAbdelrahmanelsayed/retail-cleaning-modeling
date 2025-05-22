@@ -1,0 +1,10 @@
+version: 2
+
+sources:
+  - name: public
+    tables:
+      - name: raw_online_retail
+
+models: 
+  - name: stg_online_retail
+    description: "Cleaned version of raw_online_retail"
