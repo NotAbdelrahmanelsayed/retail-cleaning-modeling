@@ -16,5 +16,5 @@ conn_str = f"postgresql://{DB_PARAMS['user']}:{DB_PARAMS['password']}@{DB_PARAMS
 engine = create_engine(conn_str)
 
 project_path = Path("/usr/app/")
-df = pd.read_excel(project_path/"data/online_retail.xlsx", nrows=100)
+df = pd.read_excel(project_path/"data/online_retail.xlsx")
 df.to_sql("raw_online_retail", engine, if_exists="replace", index=False)

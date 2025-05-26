@@ -44,3 +44,5 @@ FROM
 LEFT JOIN 
     customer_sessions cs
     ON it.customer_id = cs.customer_id
+WHERE 
+    it.total_invoice > 0 
