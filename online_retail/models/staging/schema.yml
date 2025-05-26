@@ -8,8 +8,14 @@ sources:
 models: 
   - name: stg_online_retail
     description: "Cleaned version of raw_online_retail"
-    column:
+    columns:
       - name: customer_id
+        tests:
+          - not_null
+  - name: stg_online_retail__with_id
+    description: "stg_online_retail + customer_id column"
+    columns:
+      - name: order_id
         tests:
           - unique 
           - not_null
