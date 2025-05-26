@@ -9,3 +9,5 @@ SELECT
     "Country" AS country
 FROM 
     {{ source('public', 'raw_online_retail') }}
+WHERE
+    "CustomerID" is not null
