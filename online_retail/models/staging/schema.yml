@@ -12,10 +12,8 @@ models:
       - name: customer_id
         tests:
           - not_null
-  - name: stg_online_retail__with_id
-    description: "stg_online_retail + customer_id column"
-    columns:
+      
       - name: order_id
         tests:
-          - unique 
           - not_null
+        

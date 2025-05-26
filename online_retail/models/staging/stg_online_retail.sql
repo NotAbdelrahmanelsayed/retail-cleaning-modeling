@@ -1,6 +1,6 @@
 SELECT 
+    "InvoiceNo" AS order_id,
     "CustomerID" AS customer_id,
-    "InvoiceNo" AS invoice_no,
     "StockCode" AS stock_code,
     "Description" AS description,
     "Quantity"::INT AS quantity,

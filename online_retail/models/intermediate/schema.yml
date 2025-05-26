@@ -1,0 +1,8 @@
+models:
+  - name: int_sales_analysis
+    description: "total invoices, first and last purchase per customer"
+    columns: 
+      - name:  order_id
+        tests: 
+          - unique
+          - not_null
