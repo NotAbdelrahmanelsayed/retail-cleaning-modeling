@@ -17,5 +17,4 @@ engine = create_engine(conn_str)
 
 project_path = Path("/usr/app/")
 df = pd.read_excel(project_path/"data/online_retail.xlsx", nrows=100)
-print(df)
 df.to_sql("raw_online_retail", engine, if_exists="replace", index=False)

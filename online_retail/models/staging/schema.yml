@@ -8,3 +8,8 @@ sources:
 models: 
   - name: stg_online_retail
     description: "Cleaned version of raw_online_retail"
+    column:
+      - name: customer_id
+        tests:
+          - unique 
+          - not_null
