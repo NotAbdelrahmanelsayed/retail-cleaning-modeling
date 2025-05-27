@@ -5,7 +5,7 @@ up-build:
 	docker compose up -d --build
 
 up:
-	docker-compose up -d 
+	docker compose up -d 
 
 # down containers
 down:
@@ -22,6 +22,8 @@ restart:
 sh:
 	docker exec -it dbt_core /bin/bash
 
-
 dbsh:
 	docker exec -it dbt_postgres psql -U ${DB_USER} ${DB_DATABASE}
+
+docs:
+	dbt docs generate && dbt docs serve
