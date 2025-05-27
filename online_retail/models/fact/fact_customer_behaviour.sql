@@ -31,4 +31,4 @@ LEFT JOIN
 ON
     am.customer_id = lp.customer_id
 CROSS JOIN 
-    {{ ref('date_last_date_reference') }} ld -- refer to models/dim/schema.yml to know about this table
+    {{ ref('date_last_date_reference') }} ld -- refer to models/dim/schema.yml to know about this value
