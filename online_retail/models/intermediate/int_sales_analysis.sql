@@ -35,9 +35,10 @@ SELECT
     it.order_id,
     it.customer_id,
     it.total_invoice,
-    TO_CHAR(it.invoice_date, 'YYYY-MM') AS invoice_year_month,
-    TO_CHAR(cs.first_order_date, 'YYYY-MM') AS first_order,
-    TO_CHAR(cs.last_order_date, 'YYYY-MM') AS last_order
+    invoice_date,
+    TO_CHAR(it.invoice_date, 'YYYY-MM')::DATE AS invoice_year_month,
+    TO_CHAR(cs.first_order_date, 'YYYY-MM-DD')::DATE AS first_order,
+    TO_CHAR(cs.last_order_date, 'YYYY-MM-DD')::DATE AS last_order
 
 FROM 
     invoice_totals it
