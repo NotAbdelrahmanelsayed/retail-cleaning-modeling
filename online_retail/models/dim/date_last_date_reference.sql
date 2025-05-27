@@ -1,7 +1,6 @@
-
-{{ config(materialized='table')}}
+{{ config(materialized='table') }}
 
 SELECT 
-    MAX(invoice_year_month) AS snapshot_date
+    MAX(invoice_date) AS snapshot_date
 FROM 
     {{ ref('int_sales_analysis') }}    
