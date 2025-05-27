@@ -16,6 +16,10 @@ volumes:
 	docker volume ls  
 
 restart:
+	docker compose down 
+	docker compose up -d
+	
+reset:
 	docker compose down -v  # Remove containers and volumes
 	docker compose up -d --build  # Start fresh, this will trigger data initialization again
 
