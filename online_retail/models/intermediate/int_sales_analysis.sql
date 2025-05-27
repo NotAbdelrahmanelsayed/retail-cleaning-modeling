@@ -2,7 +2,7 @@ WITH base AS (
     SELECT 
         order_id, 
         customer_id,
-        date AS invoice_date,
+        invoice_date,
         quantity * unit_price AS line_total
     FROM 
         {{ ref('stg_online_retail') }}
