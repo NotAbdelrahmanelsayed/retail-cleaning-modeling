@@ -1,0 +1,10 @@
+models: 
+  - name: date_last_date_reference
+    columns:
+      - name: snapshot_date
+        description: "date of a last pruchase in the dataset to do reliable churn analysis, using this value instead of the date of today."
+        tests:
+          - not_null
+  
+  - name: date_customer_last_purchase
+    description: "customer's newst order date."
