@@ -12,4 +12,4 @@ DB_PARAMS = {
 
 CONN_STR = f"postgresql://{DB_PARAMS['user']}:{DB_PARAMS['password']}@{DB_PARAMS['host']}:{DB_PARAMS['port']}/{DB_PARAMS['database']}"
 
-PROJECT_PATH = Path("/usr/app/")
+PROJECT_PATH = Path(__file__).resolve().parents[1]
