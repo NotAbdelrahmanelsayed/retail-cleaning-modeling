@@ -1,32 +1,38 @@
-from constants import DB_PARAMS, CONN_STR, PROJECT_PATH
-from sqlalchemy import create_engine
+from constants import CONN_STR, PROJECT_PATH
+from sqlalchemy import create_engine, inspect
 import pandas as pd 
+import logging  
+
+logging.basicConfig(level=logging.INFO)
+log = logging.getLogger("insert_data")
 
 
 def check_table_exists(engine, table_name):
     """
     function checks if table exists in the database.
     """
-    try:
-        with engine.connect as conn:
-            df = pd.read_sql_table(table_name, conn, chunksize=10)
-            print(df.head(2))
-        return True
-    except ValueError:
-        return False
+    inspector = inspect(engine)
+    log.info(f"existing tables {inspector.get_table_names()}")
+    log.info(f"{table_name=}")
+    return table_name in inspector.get_table_names()
 
 
 def load_raw_data(path, engine, table_name):
     "function loads raw data to database"
     df = pd.read_excel(path)
-    with engine.connect as conn:
+    with engine.connect() as conn:
         df.to_sql(table_name, engine, if_exists="replace", index=False)
 
 
 engine = create_engine(CONN_STR)
-table_name = DB_PARAMS['database']
+table_name = "raw_online_retail"
 data_path = PROJECT_PATH/"data/online_retail.xlsx"
+
 
 if __name__ == "__main__":
     if not check_table_exists(engine, table_name):
-        load_raw_data(data_path, engine, "raw_online_retail")
+        log.info(f"uploading table `{table_name}` to database.....")
+        load_raw_data(data_path, engine, table_name)
+        log.info(f"table `{table_name}` successfully uploaded to database")
+    else:
+        log.info(f"table `{table_name}` already exists in the database")
