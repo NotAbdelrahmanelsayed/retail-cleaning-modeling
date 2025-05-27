@@ -1,0 +1,9 @@
+models:
+  - name: fact_customer_behaviour
+    description: "fact table have sum/avg of customer spents churned and recency"
+    
+    columns:
+      - name: churned
+        tests:
+          - accepted_values:
+              values: [0, 1]

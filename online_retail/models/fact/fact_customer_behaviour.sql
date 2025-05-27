@@ -17,7 +17,7 @@ SELECT
     am.total_orders,
     am.total_spent,
     am.average_order_value,
-    DATE_PART('day', ld.snapshot_date - lp.last_order_date) AS resency_day,
+    DATE_PART('day', ld.snapshot_date - lp.last_order_date) AS recency_day,
     CASE 
         WHEN
             ld.snapshot_date - lp.last_order_date > INTERVAL '90 days' THEN 1
