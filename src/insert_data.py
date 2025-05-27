@@ -19,20 +19,21 @@ def check_table_exists(engine, table_name):
 
 def load_raw_data(path, engine, table_name):
     "function loads raw data to database"
-    df = pd.read_excel(path)
-    with engine.connect() as conn:
-        df.to_sql(table_name, engine, if_exists="replace", index=False)
-
-
-engine = create_engine(CONN_STR)
-table_name = "raw_online_retail"
-data_path = PROJECT_PATH/"data/online_retail.xlsx"
+    try:
+        df = pd.read_excel(path)
+        with engine.connect() as conn:
+            df.to_sql(table_name, engine, if_exists="replace", index=False)
+    except Exception as e:
+        log.error(f"failed to load data into `{table_name}`: {e}")
 
 
 if __name__ == "__main__":
-    if not check_table_exists(engine, table_name):
+    engine = create_engine(CONN_STR)
+    table_name = "raw_online_retail"
+    data_path = PROJECT_PATH/"data/online_retail.xlsx"
+
+    if check_table_exists(engine, table_name):
+        log.info(f"table `{table_name}` already exists in the database")
+    else:
         log.info(f"uploading table `{table_name}` to database.....")
         load_raw_data(data_path, engine, table_name)
-        log.info(f"table `{table_name}` successfully uploaded to database")
-    else:
-        log.info(f"table `{table_name}` already exists in the database")
