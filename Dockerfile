@@ -2,7 +2,8 @@
 FROM python:3.11-slim
 
 # Update and install PostgreSQL client
-RUN apt update && apt install -y postgresql-client
+RUN apt update && apt install -y postgresql-client \
+  && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Set up working directory
 WORKDIR /usr/app
@@ -11,4 +12,4 @@ WORKDIR /usr/app
 COPY requirements.txt .
 
 # Install dependencies
-RUN pip install -r requirements.txt
+RUN python -m pip install --upgrade pip && python -m pip install -r requirements.txt
