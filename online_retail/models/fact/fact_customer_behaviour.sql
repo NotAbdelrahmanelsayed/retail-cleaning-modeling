@@ -26,9 +26,5 @@ SELECT
 
 FROM
     aggregated_metrics am 
-LEFT JOIN 
-    {{ ref('date_customer_last_purchase') }} lp
-ON
-    am.customer_id = lp.customer_id
-CROSS JOIN 
-    {{ ref('date_last_date_reference') }} ld -- refer to models/dim/schema.yml to know about this value
+LEFT JOIN {{ ref('date_customer_last_purchase') }} lp ON am.customer_id = lp.customer_id
+CROSS JOIN {{ ref('dim_date_anchor') }} ld -- refer to models/dim/schema.yml
