@@ -1,3 +1,5 @@
+{{ config(materialized='table') }}
+
 SELECT 
     customer_id,
     MAX(invoice_date) AS last_order_date
