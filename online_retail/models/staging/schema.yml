@@ -7,7 +7,10 @@ sources:
 
 models: 
   - name: stg_online_retail
-    description: "Cleaned version of raw_online_retail, dropping Null customer_id"
+    description: >
+      Standrdized column names, filters out null records, 
+      casting columns to proper data types order the table by order_id
+
     columns:
       - name: customer_id
         tests:
@@ -16,4 +19,6 @@ models:
       - name: order_id
         tests:
           - not_null
-      
+
+      - name: invoice_date
+        description: "Datetime when the invoice was generated"

@@ -1,13 +1,24 @@
 models:
   - name: int_sales_analysis
-    description: "total invoices, first and last purchase per customer"
+    description: >
+      aggregated invoices per order and customer.
+      Includes invoice value, and customer first/last purchase date.
+
     columns: 
-      
-      - name:  order_id
+      - name: order_id
         tests: 
-          - unique
           - not_null
-      
+
+      - name: customer_id
+        tests:
+          - not_null
+
       - name: total_invoice
-        description: "total order amount, negative values dropped"
+        description: "Sum of quantity * unit_price of invoice"
+      
+      - name: first_order
+        description: "Customer's first invoice date"
+
+      - name: last_order
+        description: "Customer's last invoice date"
         

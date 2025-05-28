@@ -1,10 +1,27 @@
 models: 
-  - name: date_last_date_reference
+  - name: dim_date_anchor
+    description: > 
+          date of a last purchase in the dataset to do reliable churn analysis,
+          using this value instead of the date of today.
+
     columns:
       - name: snapshot_date
-        description: "date of a last pruchase in the dataset to do reliable churn analysis, using this value instead of the date of today."
+        description: "Most recent known invoice date across all transactions"
         tests:
           - not_null
   
   - name: date_customer_last_purchase
-    description: "customer's newst order date."
+    description: >
+      customer's most recent invoice date for each customer.
+    columnns:
+      - name: customer_id
+        description: "Customer identifier"
+        tests: 
+          - unique
+          - not_null
+      - name: last_order_date
+        description: "Most recent invoice date for this customer"
+        tests:
+          - not_null
+
+      
