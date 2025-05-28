@@ -13,7 +13,7 @@ models:
   - name: date_customer_last_purchase
     description: >
       customer's most recent invoice date for each customer.
-    columnns:
+    columns:
       - name: customer_id
         description: "Customer identifier"
         tests: 
