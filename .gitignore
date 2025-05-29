@@ -178,3 +178,5 @@ sources.txt
 
 # notes
 notes.txt
+
+docker-compose-with-docker.yml
