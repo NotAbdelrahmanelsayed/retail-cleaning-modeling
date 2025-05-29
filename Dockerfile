@@ -12,4 +12,4 @@ WORKDIR /usr/app
 COPY requirements.txt .
 
 # Install dependencies
-RUN python -m pip install --upgrade pip && python -m pip install -r requirements.txt
+RUN  pip install --upgrade pip &&  pip install -r requirements.txt

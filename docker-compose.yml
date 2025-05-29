@@ -1,4 +1,3 @@
-
 services:
   postgres:
     image: postgres:latest
@@ -20,6 +19,35 @@ services:
     env_file:
       - .env
 
+  airflow:
+    image: apache/airflow:2.7.2-python3.9
+    container_name: airflow
+    restart: always
+    depends_on: 
+      postgres:
+        condition: 
+          service_healthy
+    env_file:
+      - .env
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./logs:/opt/airflow/logs
+      - ./plugins:/opt/airflow/plugins
+      - ./online_retail:/usr/app/online_retail
+    ports:
+      - "8080:8081"
+    command: webserver
+  
+  airflow_scheduler:
+    image: apache/airflow:2.7.2-python3.9
+    container_name: airflow_scheduler
+    restart: always
+    depends_on:
+      - airflow
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./online_retail:/usr/app/online_retail
+    command: scheduler
 
   pgadmin:
     image: elestio/pgadmin
