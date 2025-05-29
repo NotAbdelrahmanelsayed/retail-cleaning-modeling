@@ -20,7 +20,9 @@ restart:
 	docker compose up -d
 	
 reset:
-	docker compose down -v  # Remove containers and volumes
+	docker compose down -v # down the working containers and volumes
+	docker system prune -fa # remove all containers, images and their caches
+	docker system prune -fa --volumes # Remove containers and volumes
 	docker compose up -d --build  # Start fresh, this will trigger data initialization again
 
 sh:
