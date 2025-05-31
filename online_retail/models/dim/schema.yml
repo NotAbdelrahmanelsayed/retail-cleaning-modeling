@@ -25,3 +25,15 @@ models:
           - not_null
 
       
+  - name: dim_customer
+    description: >
+      Customer details.
+    columns: 
+      - name: customer_id
+        description: "Customer Identifier"
+      - name: country
+        description: "Country where the invoice created"
+        tests:
+          - not_null
+      - name: order_id
+        description: "Order Identifier"
