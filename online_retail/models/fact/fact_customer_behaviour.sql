@@ -17,6 +17,11 @@ SELECT
     am.total_orders,
     am.total_spent,
     am.average_order_value,
+    CASE 
+        WHEN am.total_spent >= 5000 THEN 'High Value'
+        WHEN am.total_spent >= 10000 THEN 'Mid Value'
+        ELSE 'Low Value'
+    END AS customer_segment,
     DATE_PART('day', ld.snapshot_date - lp.last_order_date) AS recency_day,
     CASE 
         WHEN
