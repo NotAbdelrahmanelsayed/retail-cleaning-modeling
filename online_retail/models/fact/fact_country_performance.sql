@@ -5,5 +5,7 @@ SELECT
     SUM(total_invoice) AS total_revenue
 FROM
     {{ ref('int_sales_analysis') }}
+WHERE 
+    country <> 'Unspecified'
 GROUP BY
     country
