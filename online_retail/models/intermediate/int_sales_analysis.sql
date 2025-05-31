@@ -3,8 +3,7 @@ WITH base AS (
         order_id, 
         customer_id,
         invoice_date,
-        quantity * unit_price AS line_total,
-        country
+        quantity * unit_price AS line_total
     FROM 
         {{ ref('stg_online_retail') }}
 ),
@@ -39,16 +38,11 @@ SELECT
     it.invoice_date,
     DATE_TRUNC('month', it.invoice_date) AS invoice_month,
     cs.first_order_date AS first_order,
-    cs.last_order_date AS last_order,
-    b.country
-
+    cs.last_order_date AS last_order
 FROM 
     invoice_totals it
 LEFT JOIN 
     customer_sessions cs
     ON it.customer_id = cs.customer_id
-LEFT JOIN
-    base b 
-    ON it.customer_id = b.customer_id
 WHERE 
     it.total_invoice > 0 
