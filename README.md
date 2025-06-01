@@ -7,10 +7,10 @@ An **end-to-end data pipeline** designed for cleansing, modeling, and analyzing 
 * [Project Overview](#1-project-overview)
 * [Stack & Technologies](#2-stack--technologies)
 * [Pipeline Steps](#3-pipeline-steps)
-* [Quick Start](#4-quick-start-🚀)
-* [What I learned](#what-i-learned)
-* [Sources & References](#6-sources--references-🔗)
-* [Future Improvements](#7-future-improvements-🚧)
+* [Quick Start](#4-quick-start)
+* [What I learned](#5-what-i-learned)
+* [Sources & References](#6-sources--references)
+* [Future Improvements](#7-future-improvements)
 
 
 
@@ -117,7 +117,7 @@ dbt docs serve         # Serve and view documentation
 * Configure Power BI connection using PostgreSQL credentials from `.env`.
 
 
-## What I learned
+## 5. What I learned
 - Spent alot of time in dbt documentation which deepened my knowled of **DBT's**  limitations and capabilities
 - Learned custom SQL tests.
 - Improved my understanding of data modeling as both a creative and technical discipline.
