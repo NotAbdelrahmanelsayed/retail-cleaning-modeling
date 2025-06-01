@@ -1,15 +1,50 @@
-Welcome to your new dbt project!
+# Dbt Project: `online_retail`
 
-### Using the starter project
+## 📁 Folder Structure
 
-Try running the following commands:
-- dbt run
-- dbt test
+```
+online_retail/
+├── dbt_project.yml           # DBT configuration
+├── profiles.yml              # Connection to PostgreSQL (uses .env variables)
+├── models/                   # Core DBT models (Staging → Intermediate → Dimensions → Facts)
+├── tests/                    # Custom SQL tests
+├── macros/                   # Custom reusable macros (unused)
+├── snapshots/                # Snapshot tracking (unused)
+├── analyses/                 # Analysis queries (unused)
+├── seeds/                    # Seed files (unused)
+├── .gitignore
+├── .user.yml
+└── README.md                 # This file
 
+````
 
-### Resources:
-- Learn more about dbt [in the docs](https://docs.getdbt.com/docs/introduction)
-- Check out [Discourse](https://discourse.getdbt.com/) for commonly asked questions and answers
-- Join the [chat](https://community.getdbt.com/) on Slack for live discussions and support
-- Find [dbt events](https://events.getdbt.com) near you
-- Check out [the blog](https://blog.getdbt.com/) for the latest news on dbt's development and best practices
+## 🛠 DBT Model Layers
+
+### 🔹 Staging (`staging/`)
+- Standardizes raw data
+- Filters nulls
+- Casts column types
+
+### 🔸 Intermediate (`intermediate/`)
+- Calculates invoice totals
+- Derives first and last order dates per customer
+
+### 🟦 Dimensions (`dim/`)
+- `dim_customer`: Country and order info
+- `dim_date_anchor`: Snapshot date for churn analysis
+- `dim_date_customer_last_purchase`: Last order date per customer
+
+### 🟨 Facts (`fact/`)
+- `fact_customer_behaviour`: Total spend, churn, segment per customer
+- `fact_country_performance`: Revenue, orders per country
+
+## 🚀 Usage 
+
+Inside the dbt container run:
+
+```bash
+dbt run                # Run DBT models
+dbt test               # Test DBT models
+dbt docs generate      # Generate DBT documentation
+dbt docs serve         # Serve and view documentation
+```
